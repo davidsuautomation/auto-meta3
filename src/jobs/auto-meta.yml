@@ -58,6 +58,10 @@ executor:
 
 steps:
   - checkout
+  - connect_github
+      GITHUB_META_USER_NAME: << parameters.GITHUB_META_USER_NAME >>
+      GITHUB_META_PWD_NAME: << parameters.GITHUB_META_PWD_NAME >>
+      GITHUB_META_EMAIL: << parameters.GITHUB_META_EMAIL >>
   - run:
       name: Update packages
       command: |
