@@ -32,9 +32,9 @@ parameters:
     description: "Meta App Token"
 
 executor:
-  meta:
-    docker_tag: << parameters.docker_tag >>
-    docker_image: << parameters.docker_image >>
+  name: meta
+  docker_tag: << parameters.docker_tag >>
+  docker_image: << parameters.docker_image >>
 
 steps:
   - checkout
