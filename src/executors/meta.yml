@@ -1,13 +1,13 @@
 description: >
   This is a sample executor using Docker and MetsaDeploy.
 docker:
-  - image: '<<parameters.docker_image>>:<<parameters.tag>>'
+  - image: '<< parameters.docker_image >>:<< parameters.tag >>'
 parameters:
   docker_image:
     type: string
     default: "cimg/node"
     description: "Image for MetaDeploy"
-  tag:
+  docker_tag:
     default: lts
     description: >
       Pick a specific circleci/node image variant:

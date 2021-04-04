@@ -1,14 +1,54 @@
 description: >
-  Sample description
-# What will this job do?
-# Descriptions should be short, simple, and clear.
-
-executor: meta
+  Automation MetaDeploy CD Pipelines
 
 parameters:
   docker_image:
     type: string
     default: "cimg/node"
-    description: "Image for MetaDeploy"
+    description: "Docker Image"
+  docker_tag:
+    type: string
+    default: "lts"
+    description: "Docker Image Tag"
+  HEROKU_TOKEN_NAME:
+    type: string
+    default: "CAN-NOT-BE-NULL"
+    description: "Heroku Access token"
+  PROXY_APP:
+    type: string
+    default: "A-PROXY-APP"
+    description: "PROXY APP"
+  PROXY_PORT:
+    type: string
+    default: "443"
+    description: "PROXY PORT"
+  META_URL_NAME:
+    type: string
+    default: "META-APP-URL"
+    description: "Meta App URL"
+  META_TOKEN_NAME:
+    type: string
+    default: "META-APP-TOKEN"
+    description: "Meta App Token"
+
+executor:
+  meta:
+    docker_tag: << parameters.docker_tag >>
+    docker_image: << parameters.docker_image >>
+
 steps:
   - checkout
+  - run:
+      name: Update packages
+      command: |
+        pip install --upgrade cumulusci
+        python3 -m pipx ensurepath --force
+  - run:
+      name: Meta Publish Package
+      command: |
+        HEROKU_API_KEY="${<< parameters.HEROKU_TOKEN_NAME >>}" heroku ps:socks -a << parameters.PROXY_APP >> &
+        timeout 22 bash -c 'until printf "" 2>>/dev/null >>/dev/tcp/$0/$1; do sleep 1; done' localhost << parameters.PROXY_PORT >>
+        cci service connect metadeploy --url "${<< parameters.META_URL_NAME >>}" --token "${<< parameters.META_TOKEN_NAME >>}"
+        cci service info metadeploy | head -10
+        echo HTTPS_PROXY="socks5h://localhost:<< parameters.PROXY_PORT >>" cci task run metadeploy_publish -o commit ${CIRCLE_SHA1} -o publish << parameters.publish-flag >>
+        echo "Published ${CIRCLE_SHA1}"
