@@ -1,0 +1,24 @@
+description: >
+  This command connect github with CCI service
+
+parameters:
+  GITHUB_META_USER_NAME:
+    type: string
+    default: "USERFORGITHUB"
+    description: "github user name"
+  GITHUB_META_PWD_NAME:
+    type: string
+    default: "PASSWORDFORGITHUB"
+    description: "github user password"
+  GITHUB_META_EMAIL:
+    type: string
+    default: "EMAILFORGITHUB"
+    description: "github user email"
+steps:
+  - run:
+      name: "Connect CCI to GitHub"
+      command: |
+        cci service connect github \
+        --username "${<< parameters.GITHUB_META_USER_NAME >>}" \
+        --token "${<< parameters.GITHUB_META_PWD_NAME >>}" \
+        --email "${<< parameters.GITHUB_META_EMAIL >>}"

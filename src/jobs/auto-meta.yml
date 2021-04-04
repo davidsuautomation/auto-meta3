@@ -38,6 +38,18 @@ parameters:
     type: string
     default: "CUMULUSCIKEYNAME"
     description: "Publish On List Page"
+  GITHUB_META_USER_NAME:
+    type: string
+    default: "USERFORGITHUB"
+    description: "github user name"
+  GITHUB_META_PWD_NAME:
+    type: string
+    default: "PASSWORDFORGITHUB"
+    description: "github user password"
+  GITHUB_META_EMAIL:
+    type: string
+    default: "EMAILFORGITHUB"
+    description: "github user email"    
 
 executor:
   name: meta
