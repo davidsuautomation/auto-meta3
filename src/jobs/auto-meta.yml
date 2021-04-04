@@ -6,9 +6,9 @@ description: >
 executor: meta
 
 parameters:
-  docker_image: 
+  docker_image:
     type: string
     default: "cimg/node"
-    description: "Image for MetaDeploy"  
+    description: "Image for MetaDeploy"
 steps:
   - checkout

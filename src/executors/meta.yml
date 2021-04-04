@@ -3,10 +3,10 @@ description: >
 docker:
   - image: '<<parameters.docker_image>>:<<parameters.tag>>'
 parameters:
-  docker_image: 
+  docker_image:
     type: string
     default: "cimg/node"
-    description: "Image for MetaDeploy"  
+    description: "Image for MetaDeploy"
   tag:
     default: lts
     description: >
