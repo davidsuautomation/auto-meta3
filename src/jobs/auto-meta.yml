@@ -49,7 +49,7 @@ parameters:
   GITHUB_META_EMAIL:
     type: string
     default: "EMAILFORGITHUB"
-    description: "github user email"    
+    description: "github user email"
 
 executor:
   name: meta
