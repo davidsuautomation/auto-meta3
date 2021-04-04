@@ -33,7 +33,7 @@ parameters:
   PUBLISH_FLAG:
     type: string
     default: "False"
-    description: "Publish On List Page"  
+    description: "Publish On List Page"
 
 executor:
   name: meta
