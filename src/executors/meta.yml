@@ -1,7 +1,7 @@
 description: >
   This is a sample executor using Docker and MetsaDeploy.
 docker:
-  - image: '<< parameters.docker_image >>:<< parameters.tag >>'
+  - image: '<< parameters.docker_image >>:<< parameters.docker_tag >>'
 parameters:
   docker_image:
     type: string
