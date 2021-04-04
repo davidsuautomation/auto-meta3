@@ -18,4 +18,3 @@ steps:
         NEW_TO: "added here <<parameters.to>>"
       name: Second Greeting
       command: <<include(scripts/greet2.sh)>>
-      
