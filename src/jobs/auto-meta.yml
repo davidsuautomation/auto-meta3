@@ -59,5 +59,5 @@ steps:
         timeout 22 bash -c 'until printf "" 2>>/dev/null >>/dev/tcp/$0/$1; do sleep 1; done' localhost << parameters.PROXY_PORT >>
         cci service connect metadeploy --url "${<< parameters.META_URL_NAME >>}" --token "${<< parameters.META_TOKEN_NAME >>}"
         cci service info metadeploy | head -10
-        echo HTTPS_PROXY="socks5h://localhost:<< parameters.PROXY_PORT >>" cci task run metadeploy_publish -o commit ${CIRCLE_SHA1} -o publish << parameters.PUBLISH_FLAG >>
+        HTTPS_PROXY="socks5h://localhost:<< parameters.PROXY_PORT >>" cci task run metadeploy_publish -o commit ${CIRCLE_SHA1} -o publish << parameters.PUBLISH_FLAG >>
         echo "Published ${CIRCLE_SHA1}"
