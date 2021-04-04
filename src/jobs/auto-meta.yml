@@ -54,7 +54,7 @@ steps:
   - run:
       name: Meta Publish Package
       command: |
-        [ -z "$CUMULUSCI_KEY" ] && CUMULUSCI_KEY="${<< parameters.CUMULUSCI_KEY_NAME >>}"
+        [ -z "$CUMULUSCI_KEY" ] && export CUMULUSCI_KEY="${<< parameters.CUMULUSCI_KEY_NAME >>}"
         HEROKU_API_KEY="${<< parameters.HEROKU_TOKEN_NAME >>}" heroku ps:socks -a << parameters.PROXY_APP >> &
         timeout 22 bash -c 'until printf "" 2>>/dev/null >>/dev/tcp/$0/$1; do sleep 1; done' localhost << parameters.PROXY_PORT >>
         cci service connect metadeploy --url "${<< parameters.META_URL_NAME >>}" --token "${<< parameters.META_TOKEN_NAME >>}"
