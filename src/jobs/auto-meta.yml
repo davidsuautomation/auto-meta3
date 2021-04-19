@@ -65,7 +65,7 @@ steps:
   - run:
       name: Update packages
       command: |
-        pip install --upgrade cumulusci
+        # pip install --upgrade cumulusci
         python3 -m pipx ensurepath --force
   - run:
       name: Meta Publish Package
