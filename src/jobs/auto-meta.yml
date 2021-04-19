@@ -65,7 +65,7 @@ steps:
   - run:
       name: Update packages
       command: |
-        # pip install --upgrade cumulusci
+        pip install --upgrade cumulusci
         python3 -m pipx ensurepath --force
   - run:
       name: Meta Publish Package
@@ -73,7 +73,7 @@ steps:
         [ -z "$CUMULUSCI_KEY" ] && export CUMULUSCI_KEY="${<< parameters.CUMULUSCI_KEY_NAME >>}"
         HEROKU_API_KEY="${<< parameters.HEROKU_TOKEN_NAME >>}" heroku ps:socks -a << parameters.PROXY_APP >> &
         timeout 22 bash -c 'until printf "" 2>>/dev/null >>/dev/tcp/$0/$1; do sleep 1; done' localhost << parameters.PROXY_PORT >>
-        cci service connect metadeploy --url "${<< parameters.META_URL_NAME >>}" --token "${<< parameters.META_TOKEN_NAME >>}"
+        cci service connect metadeploy stagging --url "${<< parameters.META_URL_NAME >>}" --token "${<< parameters.META_TOKEN_NAME >>}"
         cci service info metadeploy | head -10
         HTTPS_PROXY="socks5h://localhost:<< parameters.PROXY_PORT >>" cci task run metadeploy_publish -o commit ${CIRCLE_SHA1} -o publish << parameters.PUBLISH_FLAG >>
         echo "Published ${CIRCLE_SHA1}"
